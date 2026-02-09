@@ -1,0 +1,29 @@
+# Speech-to-Text Requirements
+# Python 3.10 REQUIRED
+# Install: pip install -r requirements-stt.txt
+
+# Core dependencies
+sentencepiece>=0.1.96
+numpy<2
+huggingface-hub
+
+# Sherpa-ONNX for Vietnamese ASR
+sherpa-onnx>=1.12.6
+
+# ============================================================
+# PRE-BUILT WHEELS for faster installation (OPTIONAL)
+# ============================================================
+# 
+# For Linux x64 with CPU-only PyTorch 1.13.1:
+# 
+# pip install \
+#   https://download.pytorch.org/whl/cpu/torch-1.13.1%2Bcpu-cp310-cp310-linux_x86_64.whl \
+#   https://download.pytorch.org/whl/cpu/torchaudio-0.13.1%2Bcpu-cp310-cp310-linux_x86_64.whl \
+#   https://huggingface.co/csukuangfj/k2/resolve/main/cpu/1.24.4.dev20250307/linux-x64/k2-1.24.4.dev20250307+cpu.torch1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
+#   https://huggingface.co/csukuangfj/sherpa/resolve/main/cpu/1.4.0.dev20250307/linux-x64/k2_sherpa-1.4.0.dev20250307+cpu.torch1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl \
+#   https://huggingface.co/csukuangfj/kaldifeat/resolve/main/cpu/1.25.5.dev20250307/linux-x64/kaldifeat-1.25.5.dev20250307+cpu.torch1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+#
+# For sherpa-onnx pre-built wheel (Linux):
+# pip install https://huggingface.co/csukuangfj/sherpa-onnx-wheels/resolve/main/cpu/1.12.6/sherpa_onnx-1.12.6-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+#
+# For Windows, use: pip install sherpa-onnx>=1.12.6 (from PyPI)

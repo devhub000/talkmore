@@ -1,0 +1,14 @@
+# FastAPI TTS API - Requirements
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+hypercorn>=0.15.0
+python-multipart>=0.0.6
+
+# Core TTS dependencies
+numpy>=1.26.0
+tritonclient[http]>=2.40.0
+phonemizer>=3.2.0
+sentencepiece>=0.1.96
+huggingface-hub
+# Sherpa-ONNX for Vietnamese ASR
+sherpa-onnx>=1.12.6

@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  triton:
+    image: nvcr.io/nvidia/tritonserver:23.10-py3
+    container_name: tritonserver
+    command: >
+      tritonserver
+      --model-repository=/models
+      --log-verbose=1
+    ports:
+      - "8000:8000"   # HTTP
+      - "8001:8001"   # gRPC
+      - "8002:8002"   # Metrics (Prometheus)
+    volumes:
+      # Mount text_to_speech folder containing all voice models for Triton
+      - ./models/text_to_speech:/models:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v2/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tts-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: tts-api
+    ports:
+      - "8080:8080"  # FastAPI
+    depends_on:
+      triton:
+        condition: service_healthy
+    environment:
+      - TRITON_URL=triton:8000
+    mem_limit: 8gb
+    mem_reservation: 4gb
+    restart: unless-stopped
+    volumes:
+      # Mount text_to_speech models for TTS service
+      - ./models/text_to_speech:/app/models/text_to_speech:ro
+      # Mount speech_to_text models for STT service
+      - ./models_/stt:/app/models_/stt:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
